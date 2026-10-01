@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="480" viewBox="0 0 1200 480" role="img" aria-labelledby="title desc">
+  <title id="title">SciForge scientific teaching compiler</title>
+  <desc id="desc">A paper moves through ingestion, scientific analysis, a shared lecture plan, and multiple deterministic teaching outputs.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#102129"/><stop offset="1" stop-color="#142d32"/></linearGradient>
+    <linearGradient id="accent" x1="0" y1="0" x2="1" y2="0"><stop stop-color="#55d6be"/><stop offset="1" stop-color="#f2b45e"/></linearGradient>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="150%"><feDropShadow dx="0" dy="10" stdDeviation="12" flood-color="#061315" flood-opacity=".45"/></filter>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto"><path d="M0 0L10 5L0 10Z" fill="#73cdbb"/></marker>
+    <style>
+      .sans{font-family:Inter,Segoe UI,sans-serif}.mono{font-family:Consolas,monospace}.title{font-size:35px;font-weight:700;fill:#f5f4eb}.eyebrow{font-size:13px;letter-spacing:2px;fill:#80bfb4}.label{font-size:17px;font-weight:700;fill:#f5f4eb}.small{font-size:13px;fill:#aabbb6}.step{fill:#1a3539;stroke:#41635e;stroke-width:1.5}.output{fill:#263538;stroke:#65716a;stroke-width:1.2}.line{fill:none;stroke:#73cdbb;stroke-width:2.5;marker-end:url(#arrow)}
+    </style>
+  </defs>
+  <rect width="1200" height="480" rx="24" fill="url(#bg)"/>
+  <path d="M0 390C250 325 430 465 680 380S1010 330 1200 400" fill="none" stroke="#345353" stroke-width="1" opacity=".7"/>
+  <path d="M0 412C250 347 430 487 680 402S1010 352 1200 422" fill="none" stroke="#345353" stroke-width="1" opacity=".45"/>
+  <text x="54" y="64" class="sans eyebrow">SCIFORGE / THE SCIENTIFIC TEACHING COMPILER</text>
+  <text x="54" y="111" class="sans title">One reviewed lecture plan. A complete teaching pack.</text>
+  <text x="56" y="143" class="sans small">Source-grounded content in; deterministic classroom and publishing outputs out.</text>
+  <g filter="url(#shadow)">
+    <rect x="54" y="202" width="196" height="126" rx="14" class="step"/>
+    <rect x="302" y="202" width="196" height="126" rx="14" class="step"/>
+    <rect x="550" y="202" width="196" height="126" rx="14" class="step"/>
+    <rect x="798" y="202" width="196" height="126" rx="14" class="step"/>
+  </g>
+  <path d="M250 265H292M498 265H540M746 265H788" class="line"/>
+  <g class="sans" text-anchor="middle">
+    <text x="152" y="240" class="eyebrow">01 / SOURCE</text><text x="152" y="274" class="label">Paper or notes</text><text x="152" y="301" class="small">PDF · Markdown · text</text>
+    <text x="400" y="240" class="eyebrow">02 / ANALYZE</text><text x="400" y="274" class="label">Scientific context</text><text x="400" y="301" class="small">Graph · simulation · evidence</text>
+    <text x="648" y="240" class="eyebrow">03 / DIRECT</text><text x="648" y="274" class="label">LecturePlan IR</text><text x="648" y="301" class="small">Reviewed, timed scenes</text>
+    <text x="896" y="240" class="eyebrow">04 / RENDER</text><text x="896" y="274" class="label">Teaching outputs</text><text x="896" y="301" class="small">Video · slides · LaTeX · code</text>
+  </g>
+  <path d="M896 328V368H410" fill="none" stroke="url(#accent)" stroke-width="2"/>
+  <path d="M410 368V342" fill="none" stroke="#f2b45e" stroke-width="2" marker-end="url(#arrow)"/>
+  <rect x="266" y="350" width="288" height="54" rx="27" fill="#233336" stroke="#a2784c"/>
+  <text x="410" y="383" text-anchor="middle" class="sans label" font-size="14">Human review + reproducible rendering</text>
+  <text x="54" y="448" class="mono small">LOCAL-FIRST  /  PYDANTIC IR  /  OPTIONAL LLM  /  FFMPEG</text>
+</svg>
