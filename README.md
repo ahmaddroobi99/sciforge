@@ -127,9 +127,9 @@ backend/
   sample_papers/         Bundled benchmark inputs
 frontend/                HTML, CSS, and JavaScript studio
 tests/                    Pipeline smoke test and mocked LLM/review tests
-
+docs/
   SYSTEM_DESIGN.md        Detailed architecture and operating boundaries
-  assets/                 README diagrams and reproducible pipeline animation
+  assets/                README diagrams and reproducible pipeline animation
 ```
 
 Generated `outputs/`, persisted local `projects/`, `.env`, and Python caches are excluded from version control.
