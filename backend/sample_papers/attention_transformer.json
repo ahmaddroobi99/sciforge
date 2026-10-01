@@ -1,0 +1,10 @@
+{
+  "id": "sample_attention_paper",
+  "title": "Attention Is All You Need",
+  "topic": "Scaled Dot-Product Attention & Transformers",
+  "authors": "Vaswani et al.",
+  "year": 2017,
+  "pages": 15,
+  "abstract": "The dominant sequence transduction models are based on complex recurrent or convolutional neural networks. We propose the Transformer, a model architecture eschewing recurrence and instead relying entirely on an attention mechanism to draw global dependencies between input and output.",
+  "sample_notes": "# Notes: Scaling Attention without Recurrence\n\nProblem:\nSequential recurrence O(N) prohibits parallelization across massive text sequences.\n\nFormulation:\nInput $X \\in \\mathbb{R}^{n \\times d}$.\n$Q = X W_Q$, $K = X W_K$, $V = X W_V$.\n\nScaled Attention:\n$\\text{Attention}(Q, K, V) = \\text{softmax}\\left(\\frac{Q K^T}{\\sqrt{d_k}}\\right) V$\n\nWhy scale by $\\sqrt{d_k}$?\nDot product magnitudes grow with dimension, pushing softmax into regions with vanishing gradients.\n\nMulti-Head Attention:\n$\\text{MultiHead}(Q, K, V) = \\text{Concat}(\\text{head}_1, \\dots, \\text{head}_h) W^O$"
+}

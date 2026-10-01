@@ -1,0 +1,9 @@
+# Secrets
+.env
+
+# Generated
+outputs/
+projects/
+__pycache__/
+*.pyc
+.pytest_cache/

@@ -1,0 +1,488 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SciForge — Scientific Teaching & Publishing Compiler</title>
+    <!-- Modern Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600&family=Inter:wght@300;400;500;600;700;800&family=Cinzel:wght@600;700&display=swap"
+        rel="stylesheet">
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <!-- KaTeX for crisp LaTeX Math rendering -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css">
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/contrib/auto-render.min.js"></script>
+    <!-- Main CSS -->
+    <link rel="stylesheet" href="/styles.css">
+</head>
+
+<body class="theme-blueprint">
+
+    <!-- Top Navigation Bar -->
+    <header class="navbar">
+        <div class="brand">
+            <div class="brand-logo">
+                <i data-lucide="atom"></i>
+            </div>
+            <div class="brand-info">
+                <h1>SciForge <span class="badge-version">v1.0 COMPILER</span></h1>
+                <p>Paper → Understanding → Simulation → 10-Min Cinematic Lecture</p>
+            </div>
+        </div>
+
+        <div class="nav-metrics">
+            <div class="metric-pill">
+                <span class="dot live"></span>
+                <span>ENGINE: <strong id="engine-status">ONLINE</strong></span>
+            </div>
+            <div class="metric-pill">
+                <i data-lucide="film"></i>
+                <span>FFMPEG: <strong id="ffmpeg-status">READY (9.0)</strong></span>
+            </div>
+            <div class="metric-pill">
+                <i data-lucide="mic"></i>
+                <span>NEURAL TTS: <strong id="tts-status">EDGE-TTS</strong></span>
+            </div>
+            <div class="metric-pill">
+                <i data-lucide="brain"></i>
+                <span>AI: <strong id="llm-status">TEMPLATES</strong></span>
+            </div>
+            <button class="btn btn-secondary btn-sm" id="btn-classroom-quick" title="Launch Projector Mode">
+                <i data-lucide="presentation"></i> Projector Mode
+            </button>
+        </div>
+    </header>
+
+    <!-- Main Application Container -->
+    <main class="app-layout">
+
+        <!-- Left Sidebar: Directing & Compiler Controls -->
+        <aside class="sidebar-panel">
+            <div class="panel-section">
+                <div class="section-title">
+                    <i data-lucide="file-text"></i>
+                    <span>1. Ingest Research Paper</span>
+                </div>
+
+                <!-- Drag & Drop Zone -->
+                <div class="drop-zone" id="drop-zone">
+                    <i data-lucide="upload-cloud" class="drop-icon"></i>
+                    <p class="drop-primary-text">Drop PDF, Scanned Notes, or Code</p>
+                    <p class="drop-secondary-text">PyMuPDF / OCR / LaTeX Parser</p>
+                    <input type="file" id="file-input" accept=".pdf,.txt,.md" style="display: none;">
+                    <button class="btn btn-outline btn-sm" id="btn-browse-file">Browse File</button>
+                </div>
+
+                <!-- Fast Demo Sample Papers -->
+                <div class="samples-selector">
+                    <label class="input-label">Or Load Pre-packaged Benchmark Paper:</label>
+                    <div class="sample-chips">
+                        <button class="sample-chip active" data-sample="kalman_filter">
+                            <i data-lucide="target"></i> Kalman Filter (28p)
+                        </button>
+                        <button class="sample-chip" data-sample="attention_transformer">
+                            <i data-lucide="cpu"></i> Attention Transformers
+                        </button>
+                        <button class="sample-chip" data-sample="neural_ode">
+                            <i data-lucide="activity"></i> Neural ODEs
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="panel-section">
+                <div class="section-title">
+                    <i data-lucide="sliders"></i>
+                    <span>2. Directing & Visual Persona</span>
+                </div>
+
+                <!-- Visual Theme Selector -->
+                <div class="form-group">
+                    <label class="input-label">Visual Aesthetic Theme:</label>
+                    <select id="select-theme" class="form-select">
+                        <option value="blueprint" selected>📐 Blueprint Technical (Engineering Grid & Blue)</option>
+                        <option value="laboratory">🧪 Cybernetics / Laboratory (Dark Clean & Cyan)</option>
+                        <option value="chalkboard">🧑‍🏫 Quantum Slate (Blackboard & Chalk Math)</option>
+                        <option value="expedition">🧭 Frontier Expedition (Topographic & Amber)</option>
+                        <option value="minimalist">📄 Minimalist Academic (LaTeX High Contrast)</option>
+                    </select>
+                </div>
+
+                <!-- Persona Selector -->
+                <div class="form-group">
+                    <label class="input-label">Lecturer Persona & Voice:</label>
+                    <select id="select-persona" class="form-select">
+                        <option value="engineer" selected>🛠️ The Curious Engineer (Practical, sensors & noise)</option>
+                        <option value="theorist">📐 The Rigorous Mathematician (Formal proofs & bounds)</option>
+                        <option value="visionary">💡 The First-Principles Explorer (Intuition first)</option>
+                        <option value="dynamic_professor">🎓 The Dynamic Workshop Educator (Classroom focus)</option>
+                    </select>
+                </div>
+
+                <!-- Audience & Target Duration -->
+                <div class="form-row">
+                    <div class="form-group col-6">
+                        <label class="input-label">Target Audience:</label>
+                        <select id="select-audience" class="form-select">
+                            <option value="graduate_students" selected>Grad Students</option>
+                            <option value="undergraduate">Undergraduates</option>
+                            <option value="industry_engineers">Engineers / Pro</option>
+                            <option value="general_technical">General Tech</option>
+                        </select>
+                    </div>
+                    <div class="form-group col-6">
+                        <label class="input-label">Duration Budget:</label>
+                        <select id="select-duration" class="form-select">
+                            <option value="300">5 Minutes (Quick)</option>
+                            <option value="600" selected>10 Minutes (Standard)</option>
+                            <option value="900">15 Minutes (Deep Dive)</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Resolution Preset -->
+                <div class="form-group">
+                    <label class="input-label">Master Video Resolution:</label>
+                    <div class="btn-group-toggle">
+                        <button class="toggle-btn" data-res="720p">720p</button>
+                        <button class="toggle-btn active" data-res="1080p">1080p HD</button>
+                        <button class="toggle-btn" data-res="2K">2K QHD</button>
+                        <button class="toggle-btn" data-res="4K">4K UHD</button>
+                    </div>
+                </div>
+
+                <!-- Feature Flags -->
+                <div class="feature-checks">
+                    <label class="checkbox-container">
+                        <input type="checkbox" id="chk-equations" checked>
+                        <span class="checkmark"></span>
+                        <span>Extract & tag LaTeX equations</span>
+                    </label>
+                    <label class="checkbox-container">
+                        <input type="checkbox" id="chk-simulation" checked>
+                        <span class="checkmark"></span>
+                        <span>Run deterministic Python simulation</span>
+                    </label>
+                    <label class="checkbox-container">
+                        <input type="checkbox" id="chk-narration" checked>
+                        <span class="checkmark"></span>
+                        <span>Synthesize neural voice narration</span>
+                    </label>
+                    <label class="checkbox-container">
+                        <input type="checkbox" id="chk-slides" checked>
+                        <span class="checkmark"></span>
+                        <span>Generate classroom 16:9 projector slides</span>
+                    </label>
+                </div>
+            </div>
+
+            <!-- Compile Action Trigger -->
+            <div class="action-footer">
+                <button class="btn btn-primary btn-block btn-lg" id="btn-compile">
+                    <i data-lucide="zap"></i>
+                    <span>COMPILE SCIENTIFIC LECTURE</span>
+                </button>
+                <div class="progress-container" id="progress-container" style="display: none;">
+                    <div class="progress-bar-wrapper">
+                        <div class="progress-bar-fill" id="progress-bar-fill"></div>
+                    </div>
+                    <div class="progress-status-text" id="progress-status-text">Initializing pipeline...</div>
+                </div>
+            </div>
+        </aside>
+
+        <!-- Right Workspace: Interactive Studio & Output Tabs -->
+        <section class="workspace-panel">
+
+            <!-- Workspace Tabs -->
+            <div class="workspace-tabs">
+                <button class="tab-btn active" data-tab="tab-video">
+                    <i data-lucide="play-circle"></i> 1. Cinematic Lecture Player
+                </button>
+                <button class="tab-btn" data-tab="tab-scenes">
+                    <i data-lucide="list-ordered"></i> 2. Scene Director & Script
+                </button>
+                <button class="tab-btn" data-tab="tab-simulation">
+                    <i data-lucide="terminal"></i> 3. Verified Python Simulation
+                </button>
+                <button class="tab-btn" data-tab="tab-knowledge">
+                    <i data-lucide="network"></i> 4. Scientific Knowledge Graph
+                </button>
+                <button class="tab-btn" data-tab="tab-export">
+                    <i data-lucide="download"></i> 5. Teaching Pack & Exports
+                </button>
+            </div>
+
+            <!-- TAB 1: Cinematic Video Player -->
+            <div class="tab-content active" id="tab-video">
+                <div class="player-wrapper">
+                    <!-- Master Canvas / Video Display -->
+                    <div class="video-container" id="video-container">
+                        <!-- Native Video Element (when compiled) -->
+                        <video id="master-video" controls
+                            style="display: none; width: 100%; height: 100%; border-radius: 8px;"></video>
+
+                        <!-- Live Interactive Canvas Player (Real-time dynamic playback) -->
+                        <div class="interactive-stage" id="interactive-stage">
+                            <!-- Background Blueprint Canvas -->
+                            <canvas id="stage-canvas" width="1920" height="1080"></canvas>
+
+                            <!-- Overlay Content Box -->
+                            <div class="stage-overlay" id="stage-overlay">
+                                <div class="stage-header">
+                                    <div class="stage-theme-tag" id="stage-theme-tag">SCIFORGE // BLUEPRINT</div>
+                                    <div class="stage-scene-tag" id="stage-scene-tag">SCENE 01 / 06 [HOOK]</div>
+                                </div>
+
+                                <div class="stage-title" id="stage-title">The Core Dilemma: Sensors Lie, Models Drift
+                                </div>
+
+                                <div class="stage-main-grid">
+                                    <div class="stage-left-col">
+                                        <div class="stage-equation-box" id="stage-equation-box" style="display: none;">
+                                            <div id="stage-equation-render"></div>
+                                        </div>
+                                        <div class="stage-code-box" id="stage-code-box" style="display: none;">
+                                            <pre><code id="stage-code-render"></code></pre>
+                                        </div>
+                                        <ul class="stage-bullets" id="stage-bullets">
+                                            <li>Physical sensors suffer from high-frequency Gaussian noise and drift.
+                                            </li>
+                                            <li>Kinematic state propagation accumulates unbounded numerical error.</li>
+                                            <li>Goal: Optimal real-time Bayesian sensor fusion in state-space.</li>
+                                        </ul>
+                                    </div>
+
+                                    <div class="stage-right-col" id="stage-right-col">
+                                        <div class="stage-plot-container" id="stage-plot-container">
+                                            <img id="stage-plot-img" src="" alt="Simulation Plot"
+                                                style="display: none;">
+                                            <div class="plot-placeholder" id="stage-plot-placeholder">
+                                                <i data-lucide="line-chart"></i>
+                                                <span>Awaiting Simulation Compilation</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="stage-footer">
+                                    <div class="stage-narrator-info" id="stage-narrator-info">
+                                        <i data-lucide="mic"></i> <span id="stage-narrator-name">The Curious
+                                            Engineer</span>
+                                    </div>
+                                    <div class="stage-citation" id="stage-citation">[Paper Section 1]</div>
+                                </div>
+                            </div>
+
+                            <!-- Live Audio Player Hook -->
+                            <audio id="scene-audio" preload="auto"></audio>
+                        </div>
+
+                        <!-- Live Subtitle Overlay Ticker -->
+                        <div class="subtitle-bar" id="subtitle-bar">
+                            <span class="subtitle-text" id="subtitle-text">Click "Compile Scientific Lecture" to
+                                synthesize the dynamic tutorial.</span>
+                        </div>
+                    </div>
+
+                    <!-- Player Controls Bar -->
+                    <div class="player-controls">
+                        <button class="control-btn" id="btn-play-pause">
+                            <i data-lucide="play" id="icon-play"></i>
+                        </button>
+                        <div class="timeline-container">
+                            <input type="range" id="timeline-slider" min="0" max="100" value="0" step="0.1">
+                            <div class="time-display">
+                                <span id="time-current">00:00</span> / <span id="time-total">10:00</span>
+                            </div>
+                        </div>
+                        <div class="scene-jump-pills" id="scene-jump-pills">
+                            <!-- Populated dynamically: Scene 1, Scene 2, etc. -->
+                        </div>
+                        <button class="control-btn" id="btn-fullscreen" title="Fullscreen">
+                            <i data-lucide="maximize"></i>
+                        </button>
+                    </div>
+
+                    <!-- Video Actions & Resolution Re-render -->
+                    <div class="player-action-strip">
+                        <div class="strip-left">
+                            <span class="label-badge">OUTPUT STATUS:</span>
+                            <span class="status-indicator-badge" id="video-comp-status">Draft Preview Ready</span>
+                        </div>
+                        <div class="strip-right">
+                            <button class="btn btn-secondary btn-sm" id="btn-download-video" disabled>
+                                <i data-lucide="download"></i> Download Master MP4
+                            </button>
+                            <button class="btn btn-outline btn-sm" id="btn-render-4k">
+                                <i data-lucide="sparkles"></i> Render 4K via FFmpeg
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- TAB 2: Scene Director & Script Editor -->
+            <div class="tab-content" id="tab-scenes">
+                <div class="scenes-director-view">
+                    <div class="scenes-header">
+                        <h2>Lecture Timeline Architecture</h2>
+                        <p>Each scene has an allocated pedagogical purpose, mathematical claim, and synthesized
+                            narration.</p>
+                    </div>
+                    <div class="scenes-review-toolbar">
+                        <p id="scenes-review-status" role="status">Review narration and equations, save scene edits,
+                            then compile to refresh the teaching pack.</p>
+                        <button class="btn btn-secondary btn-sm" id="btn-compile-reviewed" type="button">
+                            <i data-lucide="refresh-cw"></i> Compile Reviewed Lecture
+                        </button>
+                    </div>
+                    <div class="scenes-list" id="scenes-list">
+                        <!-- Populated by JavaScript -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- TAB 3: Verified Python Simulation -->
+            <div class="tab-content" id="tab-simulation">
+                <div class="simulation-view">
+                    <div class="simulation-header">
+                        <div>
+                            <h2>Deterministic Python Simulation & Phase-Space Plot</h2>
+                            <p>Direct code execution produces ground truth visualizations styled to match your theme.
+                            </p>
+                        </div>
+                        <button class="btn btn-primary btn-sm" id="btn-run-code">
+                            <i data-lucide="play"></i> Execute Code
+                        </button>
+                    </div>
+
+                    <div class="sim-grid">
+                        <div class="sim-code-panel">
+                            <label class="input-label">Runnable Python Script (NumPy / SciPy / Matplotlib):</label>
+                            <textarea id="simulation-code-editor" class="code-editor" spellcheck="false"></textarea>
+                            <div class="sim-metrics-box" id="sim-metrics-box">
+                                <!-- Simulation Metrics -->
+                            </div>
+                        </div>
+                        <div class="sim-plot-panel">
+                            <label class="input-label">Rendered High-Resolution Plot:</label>
+                            <div class="plot-canvas-frame">
+                                <img id="sim-full-plot" src="" alt="Simulation Output">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- TAB 4: Scientific Knowledge Graph -->
+            <div class="tab-content" id="tab-knowledge">
+                <div class="knowledge-view">
+                    <div class="knowledge-header">
+                        <h2>Conceptual Dependency Graph</h2>
+                        <p>Maps the logical progression from raw scientific problem to assumptions, equations,
+                            algorithms, and empirical verification.</p>
+                    </div>
+
+                    <div class="graph-cards-grid" id="kg-nodes-grid">
+                        <!-- Populated dynamically -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- TAB 5: Teaching Pack & Exports -->
+            <div class="tab-content" id="tab-export">
+                <div class="export-view">
+                    <div class="export-header">
+                        <h2>Autonomous Scientific Publishing Pack</h2>
+                        <p>All assets generated from a single compile command: 16:9 slides, LaTeX sheet, Python code,
+                            YouTube metadata.</p>
+                    </div>
+
+                    <div class="export-grid">
+                        <!-- Card 1: Classroom Slides -->
+                        <div class="export-card">
+                            <div class="export-card-icon"><i data-lucide="presentation"></i></div>
+                            <h3>16:9 Classroom Slides</h3>
+                            <p>High-contrast, projector-ready HTML slide deck with KaTeX math and keyboard navigation.
+                            </p>
+                            <a href="#" target="_blank" class="btn btn-primary btn-sm" id="link-open-slides">
+                                <i data-lucide="external-link"></i> Launch Deck
+                            </a>
+                        </div>
+
+                        <!-- Card 2: Master MP4 Video -->
+                        <div class="export-card">
+                            <div class="export-card-icon"><i data-lucide="film"></i></div>
+                            <h3>Master Video File (MP4)</h3>
+                            <p>Full 10-minute scientific lecture compiled via FFmpeg with narration and transitions.</p>
+                            <a href="#" download class="btn btn-primary btn-sm" id="link-download-mp4">
+                                <i data-lucide="download"></i> Download Video
+                            </a>
+                        </div>
+
+                        <!-- Card 3: LaTeX Derivation Document -->
+                        <div class="export-card">
+                            <div class="export-card-icon"><i data-lucide="file-code"></i></div>
+                            <h3>LaTeX Derivation Sheet</h3>
+                            <p>Formal academic paper write-up ready for Overleaf or pdfLaTeX compilation.</p>
+                            <a href="#" download class="btn btn-secondary btn-sm" id="link-download-latex">
+                                <i data-lucide="download"></i> Download .tex
+                            </a>
+                        </div>
+
+                        <!-- Card 4: Python Simulation Script -->
+                        <div class="export-card">
+                            <div class="export-card-icon"><i data-lucide="code"></i></div>
+                            <h3>Standalone Python Script</h3>
+                            <p>Self-contained simulation script reproducing all trajectories and plots.</p>
+                            <a href="#" download class="btn btn-secondary btn-sm" id="link-download-py">
+                                <i data-lucide="download"></i> Download .py
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- YouTube Metadata Box -->
+                    <div class="youtube-export-box">
+                        <h3><i data-lucide="youtube"></i> YouTube Publishing Pack (Description & Chapters)</h3>
+                        <p>Copy-paste ready title, timestamps, and description optimized for scientific discovery.</p>
+                        <div class="yt-content-grid">
+                            <div>
+                                <label class="input-label">Optimized Video Title:</label>
+                                <input type="text" id="yt-title-input" class="form-input" readonly>
+                            </div>
+                            <div style="margin-top: 1rem;">
+                                <label class="input-label">Video Description & Chapter Markers:</label>
+                                <textarea id="yt-desc-input" class="form-textarea" rows="8" readonly></textarea>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </section>
+    </main>
+
+    <!-- Modal: Classroom Presentation Deck -->
+    <div class="modal-backdrop" id="classroom-modal" style="display: none;">
+        <div class="modal-window">
+            <div class="modal-header">
+                <span class="modal-title">Classroom Projector Deck Preview</span>
+                <button class="btn btn-outline btn-sm" id="btn-close-modal"><i data-lucide="x"></i> Close</button>
+            </div>
+            <div class="modal-body">
+                <iframe id="classroom-iframe" src="" style="width: 100%; height: 100%; border: none;"></iframe>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Logic Script -->
+    <script src="/app.js"></script>
+</body>
+
+</html>

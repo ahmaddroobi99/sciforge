@@ -1,0 +1,10 @@
+{
+  "id": "sample_kalman_paper",
+  "title": "A New Approach to Linear Filtering and Prediction Problems",
+  "topic": "Kalman Filtering & Optimal State Estimation",
+  "authors": "R. E. Kalman",
+  "year": 1960,
+  "pages": 28,
+  "abstract": "The classical filtering problem is treated from the viewpoint of state-space theory. A recursive solution is developed that is ideally suited for digital computation. The filter uses physical kinematic state equations and statistical measurement updates to produce the minimum mean-square error estimate.",
+  "sample_notes": "# Field Derivation Notes: State Estimation in Noisy Terrains\n\nProblem Statement:\nAutonomous drone navigating high-vibration environment. GPS sample rate 10Hz with sigma=1.5m, IMU drift rate 0.05m/s^2.\nHow to estimate true velocity and position?\n\nDynamics:\n$x_{k} = A x_{k-1} + B u_k + w_k$\nMeasurement:\n$z_k = H x_k + v_k$\n\nAssume $w_k \\sim \\mathcal{N}(0, Q)$, $v_k \\sim \\mathcal{N}(0, R)$.\n\nPrior State Predict:\n$\\hat{x}_k^- = A \\hat{x}_{k-1}$\n$P_k^- = A P_{k-1} A^T + Q$\n\nKalman Gain Derivation:\n$K_k = P_k^- H^T (H P_k^- H^T + R)^{-1}$\n\nMeasurement Update:\n$\\hat{x}_k = \\hat{x}_k^- + K_k (z_k - H \\hat{x}_k^-)$\n$P_k = (I - K_k H) P_k^-$\n\nNotice:\nWhen $R \\to 0$, $K \\to H^{-1}$ (trust sensor completely).\nWhen $R \\to \\infty$, $K \\to 0$ (trust kinematic model completely).\nUncertainty ellipse shrinks monotonically to algebraic Riccati limit."
+}

@@ -1,0 +1,10 @@
+{
+  "id": "sample_neural_ode_paper",
+  "title": "Neural Ordinary Differential Equations",
+  "topic": "Continuous-Depth Neural ODEs",
+  "authors": "Ricky T. Q. Chen, Yulia Rubanova, Jesse Bettencourt, David Duvenaud",
+  "year": 2018,
+  "pages": 21,
+  "abstract": "We introduce a new family of deep neural network models. Instead of specifying a discrete sequence of hidden layers, we parameterize the derivative of the hidden state using a neural network. The output is computed using a black-box differential equation solver.",
+  "sample_notes": "# Field Derivation: Continuous Depth & Adjoint Gradients\n\nProblem:\nDiscrete layers in ResNets: $h_{t+1} = h_t + f(h_t, \\theta_t)$.\nIn the infinitesimal limit $\\Delta t \\to 0$:\n$\\frac{d h(t)}{d t} = f(h(t), t, \\theta)$\n\nTrajectory Output:\n$h(t_1) = h(t_0) + \\int_{t_0}^{t_1} f(h(t), t, \\theta) dt$\n\nAdjoint State Method (Memory O(1)):\n$a(t) = \\frac{\\partial L}{\\partial h(t)}$\n$\\frac{d a(t)}{d t} = -a(t)^T \\frac{\\partial f(h(t), t, \\theta)}{\\partial h}$\n\nSolve backwards in time alongside augmented dynamics."
+}
